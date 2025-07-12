@@ -1,0 +1,48 @@
+﻿@model DataTable
+@using System.Data
+
+
+<div class="d-flex justify-content-between mb-4">
+    <div class="h4">Doctor Department</div>
+    <div class=""> <span class="text-primary">Hospital Management </span> > <span class="text-primary">Doctor-Department</span> > Doctor Department List</div>
+</div>
+
+<div class="mb-4">
+
+    @if (TempData["Sucessfully"] != null)
+    {
+        <div class="alert alert-success"> @TempData["Sucessfully"]</div>
+    }
+    @if (TempData["Unsucessfully"] != null)
+    {
+        <div class="alert alert-danger"> @TempData["Unsucessfully"]</div>
+    }
+</div>
+
+<div class="card p-3">
+    <div class="d-flex justify-content-end mb-2">
+        <button type="button" class="btn btn-outline-primary"> <i class="far fa-add"></i> Doctor Department</button>
+    </div>
+    <table class="table mt-2 p-2">
+        <thead>
+            <tr class="table-active">
+                <th scope="col">Doctor Name</th>
+                <th scope="col">Department(s)</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in Model.Rows)
+            {
+                <tr>
+                    <td>@row["DoctorName"]</td>
+                    <td>@row["DepartmentName"]</td>
+                    <td>
+                        <button type="button" class="btn btn-outline-primary">Edit</button>
+                        <a asp-controller="DoctorDepartment" asp-action="DoctorDepartmentDelete" asp-route-DOCTORDEPARTMENTID="@row["DoctorDepartmentID"]" class="btn btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

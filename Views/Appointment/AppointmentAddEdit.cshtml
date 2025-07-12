@@ -1,0 +1,81 @@
+﻿
+
+<div class="d-flex justify-content-between mb-4">
+    <div class="h4">Add Appointment</div>
+    <div class=""> <span class="text-primary">Hospital Management </span> > <span class="text-primary">Appointment</span> >Add</div>
+</div>
+
+<div class="card p-3">
+    <div class="mb-2">
+        <div class="h5">Doctor Department Information</div>
+        <div class="h6">Assign a doctor to one or more department</div>
+    </div>
+
+    <form method="post" asp-controller="Appointment" asp-action="AppointmentAddEdit">
+        
+
+        <div class="row">
+            <div class="col-4">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Appointment Date & Time</label>
+                    <input type="datetime" class="form-control" id="exampleFormControlInput1" placeholder="01-01-0001 00:00">
+                </div>
+            </div>
+            <div class="col-4">
+                <label class="mb-2" for="autoSizingSelect">Department</label>
+                <select class="form-select" id="autoSizingSelect">
+                    <option selected>--Select Department-- </option>
+                    <option value="1">Department1</option>
+                    <option value="2">Department1</option>
+                    <option value="3">Department3</option>
+                </select>
+            </div>
+            <div class="col-4">
+                <label class="mb-2" for="autoSizingSelect">Doctor</label>
+                <select class="form-select" id="autoSizingSelect">
+                    <option selected>--Select Doctor-- </option>
+                    <option value="1">Doctor1</option>
+                    <option value="2">Doctor2</option>
+                    <option value="3">Doctor3</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            
+            <div class="col-4">
+                <label class="mb-2" for="autoSizingSelect">Patient</label>
+                <select class="form-select" id="autoSizingSelect">
+                    <option selected>--Select Patient-- </option>
+                    <option value="1">Patient1</option>
+                    <option value="2">Patient1</option>
+                    <option value="3">Patient3</option>
+                </select>
+            </div>
+            
+            <div class="col-4 ">
+                <div class="row">
+                <label class="mb-2" for="autoSizingSelect">Description</label>
+                </div>
+                <div class="row">
+                    <textarea class="form-control w-75"></textarea>
+                </div>
+            </div>
+            
+            <div class="col-4">
+                <div class="row">
+                    <label class="mb-2" for="autoSizingSelect">Special Remarks</label>
+                </div>
+                <div class="row">
+                    <textarea class="form-control w-75"></textarea>
+                </div>
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="#" class="btn btn-secondary">Cancel</a>
+    </form>
+
+</div>
+

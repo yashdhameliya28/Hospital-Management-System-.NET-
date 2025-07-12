@@ -1,0 +1,76 @@
+﻿@model DataTable
+@using System.Data
+
+<div class="d-flex justify-content-between mb-4">
+    <div class="h4">Appointment List</div>
+    <div class=""> <span class="text-primary">Hospital Management </span> > <span class="text-primary">Appointment</span> > Appointment List</div>
+</div>
+
+<div class="mb-4">
+
+    @if (TempData["Sucessfully"] != null)
+    {
+        <div class="alert alert-success"> @TempData["Sucessfully"]</div>
+    }
+    @if (TempData["Unsucessfully"] != null)
+    {
+        <div class="alert alert-danger"> @TempData["Unsucessfully"]</div>
+    }
+</div>
+
+<div class="d-flex justify-content-between mb-4">
+    <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Doctor Name" aria-label="Search" />
+        <input class="form-control me-2" type="search" placeholder="Patient Name" aria-label="Search" />
+        <input class="form-control me-2" type="search" placeholder="Status" aria-label="Search" />
+        <input class="form-control me-2" type="date" placeholder="dd-mm-yyyy" aria-label="Search" />
+        <button class="btn btn-outline-success me-2" type="submit">Filter</button>
+        <button class="btn btn-outline-secondary" type="submit">Reset</button>
+    </form>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Doctor</th>
+                        <th>Specialization</th>
+                        <th>Scheduled By</th>
+                        <th>User Role</th>
+                        <th>Patient</th>
+                        <th>Email</th>
+                        <th>Appointment Date</th>
+                        <th>Status</th>
+                        <th>Description</th>
+                        <th>Remarks</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (DataRow row in Model.Rows)
+                    {
+                        <tr>
+                            <td>@row["DoctorName"]</td>
+                            <td>@row["Specialization"]</td>
+                            <td>@row[""]</td>
+                            <td>@row["UserName"]</td>
+                            <td>@row["PatientName"]</td>
+                            <td>@row["PatientEmail"]</td>
+                            <td>@row["AppointmentDate"]</td>
+                            <td>@row[""]</td>
+                            <td>@row["Description"]</td>
+                            <td>@row["SpecialRemarks"]</td>
+                            <td>
+                                <a class="btn btn-outline-primary">Edit</a>
+                                <a asp-controller="Appointment" asp-action="AppointmentDelete" asp-route-APPOINMENTID="@row["AppointmentID"]" class="btn btn-outline-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

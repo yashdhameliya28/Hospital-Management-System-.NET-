@@ -1,0 +1,79 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\SEM 5\\.NET\\HMS\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|d:\\sem 5\\.net\\hms\\views\\doctor\\doctoraddedit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|solutionrelative:views\\doctor\\doctoraddedit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|d:\\sem 5\\.net\\hms\\controllers\\doctorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|solutionrelative:controllers\\doctorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|d:\\sem 5\\.net\\hms\\models\\doctormodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|solutionrelative:models\\doctormodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DoctorAddEdit.cshtml",
+              "DocumentMoniker": "D:\\SEM 5\\.NET\\HMS\\Views\\Doctor\\DoctorAddEdit.cshtml",
+              "RelativeDocumentMoniker": "Views\\Doctor\\DoctorAddEdit.cshtml",
+              "ToolTip": "D:\\SEM 5\\.NET\\HMS\\Views\\Doctor\\DoctorAddEdit.cshtml*",
+              "RelativeToolTip": "Views\\Doctor\\DoctorAddEdit.cshtml*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-12T06:32:27.736Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DoctorModel.cs",
+              "DocumentMoniker": "D:\\SEM 5\\.NET\\HMS\\Models\\DoctorModel.cs",
+              "RelativeDocumentMoniker": "Models\\DoctorModel.cs",
+              "ToolTip": "D:\\SEM 5\\.NET\\HMS\\Models\\DoctorModel.cs",
+              "RelativeToolTip": "Models\\DoctorModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-12T06:12:34.852Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DoctorController.cs",
+              "DocumentMoniker": "D:\\SEM 5\\.NET\\HMS\\Controllers\\DoctorController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DoctorController.cs",
+              "ToolTip": "D:\\SEM 5\\.NET\\HMS\\Controllers\\DoctorController.cs",
+              "RelativeToolTip": "Controllers\\DoctorController.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAFEAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-12T06:10:23.15Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

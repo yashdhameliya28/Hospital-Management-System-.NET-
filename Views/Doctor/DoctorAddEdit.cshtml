@@ -1,0 +1,36 @@
+﻿
+
+<div class="d-flex justify-content-between">
+    <div class="h4">Doctor List</div>
+    <div class=""> <span class="text-primary">Hospital Management </span> > <span class="text-primary">Doctor</span> > Doctor List</div>
+</div>
+
+<form method="post" asp-controller="Doctor" asp-action="DcotorAddEdit">
+    <div class="mb-3">
+        <label for="Name" class="form-label">Name</label>
+        <input type="text" id="Name" name="Name" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label for="Phone" class="form-label">Phone</label>
+        <input type="number" id="Phone" name="Phone" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label for="Email" class="form-label">Email</label>
+        <input type="email" id="Email" name="Email" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label for="Qualification" class="form-label">Qualification</label>
+        <input type="text" id="Qualification" name="Qualification" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label for="Specialization" class="form-label">Specialization</label>
+        <input type="text" id="Specialization" name="Specialization" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="#" class="btn btn-secondary">Cancel</a>
+</form>

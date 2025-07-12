@@ -1,0 +1,54 @@
+﻿
+
+<div class="d-flex justify-content-between mb-4">
+    <div class="h4">Add Doctor Department</div>
+    <div class=""> <span class="text-primary">Hospital Management </span> > <span class="text-primary">Doctor Department</span> >Add</div>
+</div>
+
+<div class="card p-3">
+    <div class="mb-2">
+        <div class="h5">Doctor Department Information</div>
+        <div class="h6">Assign a doctor to one or more department</div>
+    </div>
+
+    <form method="post" asp-controller="DoctorDepartment" asp-action="DoctorDepartmentAddEdit">
+        
+
+        <div class="col-auto mb-3">
+            <label class="mb-2" for="autoSizingSelect">Doctor</label>
+            <select class="form-select" id="autoSizingSelect">
+                <option selected>--Select Doctor-- </option>
+                <option value="1">Doctor1</option>
+                <option value="2">Doctor2</option>
+                <option value="3">Doctor3</option>
+            </select>
+        </div>
+
+        <div class="mb-4 ">
+            <div class="" role="group" aria-label="Basic checkbox toggle button group">
+                <input type="checkbox" class="" id="cardiology" autocomplete="off">
+                <label class="me-2" for="cardiology">Cardiology</label>
+
+                <input type="checkbox" class="" id="d" autocomplete="off">
+                <label class="me-2" for="d">D</label>
+
+                <input type="checkbox" class="" id="neruology" autocomplete="off">
+                <label class="me-2" for="neruology">Neruology</label>
+
+                <input type="checkbox" class="" id="orthopedic" autocomplete="off">
+                <label class="me-2" for="orthopedic">Orthopedic</label>
+
+                <input type="checkbox" class="" id="ssssss" autocomplete="off">
+                <label class="me-2" for="ssssss">ssssss</label>
+
+                <input type="checkbox" class="" id="test" autocomplete="off">
+                <label class="me-2" for="test">Test</label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="#" class="btn btn-secondary">Cancel</a>
+    </form>
+
+</div>
+
