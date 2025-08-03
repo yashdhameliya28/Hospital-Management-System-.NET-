@@ -128,7 +128,6 @@ namespace HMS.Controllers
             {
                 return View("UserAddEdit", userModel);
             }
-
             return RedirectToAction("UserList");
         }
         #endregion
@@ -138,7 +137,7 @@ namespace HMS.Controllers
         {
             if(UserID == null)
             {
-                ViewBag.ErrorMessage = "UserID ID is required";
+                ViewBag.ErrorMessage = "UserID is required";
                 return RedirectToAction("UserList");
             }
 

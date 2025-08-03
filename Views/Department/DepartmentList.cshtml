@@ -1,5 +1,47 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model DataTable
+@using System.Data
+
+<div class="d-flex justify-content-between">
+    <div class="h4">Departemt List</div>
+    <div class=""> <span class="text-primary">Hospital Management </span> > <span class="text-primary">Departemt</span> > Departemt List</div>
+</div>
+
+<div class="mb-4">
+
+    @if (TempData["Sucessfully"] != null)
+    {
+        <div class="alert alert-success"> @TempData["Sucessfully"]</div>
+    }
+    @if (TempData["Unsucessfully"] != null)
+    {
+        <div class="alert alert-danger"> @TempData["Unsucessfully"]</div>
+    }
+
+</div>
+<div class="card p-3">
+    <table class="table mt-2 p-2 table-bordered">
+        <thead>
+            <tr class="table-active">
+                <th scope="col">Departemt ID</th>
+                <th scope="col">Departemt Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in Model.Rows)
+            {
+                <tr>
+                    <td>@row["DepartmentID"]</td>
+                    <td>@row["DepartmentName"]</td>
+                    <td>@row["Description"]</td>
+                    <td>
+                        <a asp-controller="Department" asp-action="DepartmentUpdate" asp-route-departmentID="@row["DepartmentID"]" class="btn btn-outline-primary">Edit</a>
+                        <a asp-controller="Department" asp-action="DepartmentDelete" asp-route-departmentID="@row["DepartmentID"]" class="btn btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

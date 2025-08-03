@@ -3,36 +3,32 @@
   "WorkspaceRootPath": "D:\\SEM 5\\.NET\\HMS\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|d:\\sem 5\\.net\\hms\\controllers\\departmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|solutionrelative:controllers\\departmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|d:\\sem 5\\.net\\hms\\views\\department\\departmentlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|solutionrelative:views\\department\\departmentlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|d:\\sem 5\\.net\\hms\\views\\user\\userlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|solutionrelative:views\\user\\userlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|d:\\sem 5\\.net\\hms\\models\\departmentmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|solutionrelative:models\\departmentmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|d:\\sem 5\\.net\\hms\\views\\department\\departmentaddedit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|solutionrelative:views\\department\\departmentaddedit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|d:\\sem 5\\.net\\hms\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|d:\\sem 5\\.net\\hms\\controllers\\patientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|solutionrelative:controllers\\patientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|d:\\sem 5\\.net\\hms\\models\\patientmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|solutionrelative:models\\patientmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|d:\\sem 5\\.net\\hms\\views\\user\\useraddedit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|solutionrelative:views\\user\\useraddedit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|d:\\sem 5\\.net\\hms\\models\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|solutionrelative:models\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|d:\\sem 5\\.net\\hms\\views\\patient\\patientaddedit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|solutionrelative:views\\patient\\patientaddedit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|d:\\sem 5\\.net\\hms\\views\\patient\\patientlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{DCB7142C-597D-4826-9D20-877597474352}|HMS.csproj|solutionrelative:views\\patient\\patientlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 221,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,26 +54,78 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "UserList.cshtml",
               "DocumentMoniker": "D:\\SEM 5\\.NET\\HMS\\Views\\User\\UserList.cshtml",
               "RelativeDocumentMoniker": "Views\\User\\UserList.cshtml",
               "ToolTip": "D:\\SEM 5\\.NET\\HMS\\Views\\User\\UserList.cshtml",
               "RelativeToolTip": "Views\\User\\UserList.cshtml",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAACsAAABYAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAADIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-08-03T12:17:32.261Z",
+              "WhenOpened": "2025-08-03T13:30:53.049Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DepartmentController.cs",
+              "DocumentMoniker": "D:\\SEM 5\\.NET\\HMS\\Controllers\\DepartmentController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DepartmentController.cs",
+              "ToolTip": "D:\\SEM 5\\.NET\\HMS\\Controllers\\DepartmentController.cs",
+              "RelativeToolTip": "Controllers\\DepartmentController.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAADgAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-03T12:51:17.418Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DepartmentList.cshtml",
+              "DocumentMoniker": "D:\\SEM 5\\.NET\\HMS\\Views\\Department\\DepartmentList.cshtml",
+              "RelativeDocumentMoniker": "Views\\Department\\DepartmentList.cshtml",
+              "ToolTip": "D:\\SEM 5\\.NET\\HMS\\Views\\Department\\DepartmentList.cshtml",
+              "RelativeToolTip": "Views\\Department\\DepartmentList.cshtml",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACgAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-03T12:41:18.456Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DepartmentModel.cs",
+              "DocumentMoniker": "D:\\SEM 5\\.NET\\HMS\\Models\\DepartmentModel.cs",
+              "RelativeDocumentMoniker": "Models\\DepartmentModel.cs",
+              "ToolTip": "D:\\SEM 5\\.NET\\HMS\\Models\\DepartmentModel.cs",
+              "RelativeToolTip": "Models\\DepartmentModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-03T12:23:11.183Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "DepartmentAddEdit.cshtml",
+              "DocumentMoniker": "D:\\SEM 5\\.NET\\HMS\\Views\\Department\\DepartmentAddEdit.cshtml",
+              "RelativeDocumentMoniker": "Views\\Department\\DepartmentAddEdit.cshtml",
+              "ToolTip": "D:\\SEM 5\\.NET\\HMS\\Views\\Department\\DepartmentAddEdit.cshtml",
+              "RelativeToolTip": "Views\\Department\\DepartmentAddEdit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-03T12:22:15.112Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "UserAddEdit.cshtml",
               "DocumentMoniker": "D:\\SEM 5\\.NET\\HMS\\Views\\User\\UserAddEdit.cshtml",
               "RelativeDocumentMoniker": "Views\\User\\UserAddEdit.cshtml",
               "ToolTip": "D:\\SEM 5\\.NET\\HMS\\Views\\User\\UserAddEdit.cshtml",
               "RelativeToolTip": "Views\\User\\UserAddEdit.cshtml",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAACQAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAADUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-08-03T11:43:37.681Z",
               "EditorCaption": ""
@@ -85,76 +133,12 @@
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "UserModel.cs",
-              "DocumentMoniker": "D:\\SEM 5\\.NET\\HMS\\Models\\UserModel.cs",
-              "RelativeDocumentMoniker": "Models\\UserModel.cs",
-              "ToolTip": "D:\\SEM 5\\.NET\\HMS\\Models\\UserModel.cs",
-              "RelativeToolTip": "Models\\UserModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-03T11:22:36.865Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "PatientList.cshtml",
-              "DocumentMoniker": "D:\\SEM 5\\.NET\\HMS\\Views\\Patient\\PatientList.cshtml",
-              "RelativeDocumentMoniker": "Views\\Patient\\PatientList.cshtml",
-              "ToolTip": "D:\\SEM 5\\.NET\\HMS\\Views\\Patient\\PatientList.cshtml",
-              "RelativeToolTip": "Views\\Patient\\PatientList.cshtml",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAADAAAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-31T13:51:45.058Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PatientController.cs",
-              "DocumentMoniker": "D:\\SEM 5\\.NET\\HMS\\Controllers\\PatientController.cs",
-              "RelativeDocumentMoniker": "Controllers\\PatientController.cs",
-              "ToolTip": "D:\\SEM 5\\.NET\\HMS\\Controllers\\PatientController.cs",
-              "RelativeToolTip": "Controllers\\PatientController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-31T07:16:12.446Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "PatientAddEdit.cshtml",
-              "DocumentMoniker": "D:\\SEM 5\\.NET\\HMS\\Views\\Patient\\PatientAddEdit.cshtml",
-              "RelativeDocumentMoniker": "Views\\Patient\\PatientAddEdit.cshtml",
-              "ToolTip": "D:\\SEM 5\\.NET\\HMS\\Views\\Patient\\PatientAddEdit.cshtml",
-              "RelativeToolTip": "Views\\Patient\\PatientAddEdit.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-30T07:58:50.893Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PatientModel.cs",
-              "DocumentMoniker": "D:\\SEM 5\\.NET\\HMS\\Models\\PatientModel.cs",
-              "RelativeDocumentMoniker": "Models\\PatientModel.cs",
-              "ToolTip": "D:\\SEM 5\\.NET\\HMS\\Models\\PatientModel.cs",
-              "RelativeToolTip": "Models\\PatientModel.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAnwC0AAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T07:58:08.928Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "UserController.cs",
               "DocumentMoniker": "D:\\SEM 5\\.NET\\HMS\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
               "ToolTip": "D:\\SEM 5\\.NET\\HMS\\Controllers\\UserController.cs",
               "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AgIAAG8AAAAAAAAAAAAnwIgAAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAEoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-31T13:29:12.99Z",
               "EditorCaption": ""
