@@ -1,0 +1,54 @@
+﻿@model HMS.Models.UserModel
+
+<div class="d-flex justify-content-between mb-4">
+    <div class="h4">User Information</div>
+    <div>
+        <span class="text-primary">Hospital Management</span> >
+        <span class="text-primary">User</span> >
+    </div>
+</div>
+
+<div class="card p-3">
+    <form method="post" asp-controller="User" asp-action="UserSave">
+        <input type="hidden" name="UserID" asp-for="UserID" />
+
+        <label for="UserName">Name</label>
+        <input type="text" id="UserName" asp-for="UserName" class="form-control mb-2" />
+        <div class="mb-2">
+            <span asp-validation-for="UserName" class="text-danger mb-2"> </span>
+        </div>
+
+        <label for="Password">Password</label>
+        <input type="password" id="Password" class="form-control mb-2" asp-for="Password" required />
+        <div class="mb-2">
+            <span asp-validation-for="Password" class="text-danger mb-2"> </span>
+
+        </div>
+
+        <label for="Email">Email</label>
+        <input type="email" id="Email" class="form-control mb-2" asp-for="Email" required />
+        <div class="mb-2">
+            <span asp-validation-for="Email" class="text-danger mb-2"> </span>
+
+        </div>
+
+        <label for="MobileNo">Mobile No.</label>
+        <input type="text" id="MobileNo" asp-for="MobileNo" name="MobileNo" class="form-control mb-2" required />
+        <div class="mb-2">
+
+            <span asp-validation-for="MobileNo" class="text-danger mb-2"> </span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            @(Model.UserID > 0 ? "Update User" : "Save User")
+        </button>
+        <a href="@Url.Action("UserList", "User")" class="btn btn-secondary mt-2">Cancel</a>
+    </form>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

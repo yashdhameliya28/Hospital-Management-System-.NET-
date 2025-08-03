@@ -5,22 +5,24 @@ using System.Data.SqlClient;
 
 namespace HMS.Controllers
 {
+
     public class PatientController : Controller
     {
 
         public IConfiguration configuration;
-        
+
         public PatientController(IConfiguration _configuration)
         {
             configuration = _configuration;
         }
 
+
         #region List from DB
-         public DataTable Plist(string SP)
+        public DataTable Plist(string SP)
         {
             string connectionString = this.configuration.GetConnectionString("myConnection");
-            
-            using(SqlConnection connection = new SqlConnection(connectionString))
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
@@ -36,98 +38,186 @@ namespace HMS.Controllers
                         return table;
                     }
                 }
-            } 
+            }
         }
         #endregion
 
-        #region DELETE
+
+        #region Delete DB
 
         public IActionResult PatientDelete(int PATIENTID)
         {
             try
             {
-            string connectionString = this.configuration.GetConnectionString("myConnection");
+                string connectionString = this.configuration.GetConnectionString("myConnection");
 
-                using(SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    using(SqlCommand command = connection.CreateCommand())
+                    using (SqlCommand command = connection.CreateCommand())
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.CommandText = "PR_Patient_DeleteByPK";
 
                         command.Parameters.Add("PATIENTID", SqlDbType.Int).Value = PATIENTID;
-                        TempData["Sucessfully"] = "Deleted Sucessfully.";
+                        TempData["Successfully"] = "Deleted Successfully.";
                         command.ExecuteNonQuery();
 
-                        return RedirectToAction("Plist");
+                        return RedirectToAction("PatientList");
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                TempData["Unsucessfully"] = "Not Delete.";
+                TempData["Unsuccessfully"] = "Delete Failed: " + e.Message;
                 return RedirectToAction("Plist");
             }
-
-         
         }
 
         #endregion
 
-        #region ADD/EDIT
-        public IActionResult PatientAddEdit(PatientModel patientModel)
+        
+        #region Add/Edit DB 
+        [HttpPost]
+        public IActionResult PatientSave(PatientModel patientModel)
         {
             if (ModelState.IsValid)
             {
-                patientModel.IsActive = true;
-                patientModel.Created = DateTime.Now;
-                patientModel.Modified = DateTime.Now;
+                try
+                {
+                    string connectionString = this.configuration.GetConnectionString("myConnection");
 
-                string connectionString = this.configuration.GetConnectionString("myConnection");
-                SqlConnection connection = new SqlConnection(connectionString);
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
 
-                connection.Open();
+                        using (SqlCommand command = connection.CreateCommand())
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
 
-                patientModel.UserID = 2;
+                            if (patientModel.PatientID != 0)
+                            {
+                                command.CommandText = "PR_Patient_UpdateByPK";
+                                command.Parameters.Add("@PatientID", SqlDbType.Int).Value = patientModel.PatientID;
+                                patientModel.Modified = DateTime.Now;
+                            }
+                            else
+                            {
+                                command.CommandText = "PR_Patient_Insert";
+                                patientModel.Created = DateTime.Now;
+                                patientModel.UserID = 6;
+                                patientModel.IsActive = true;
+                                patientModel.Modified = DateTime.Now;
+                            }
 
-                SqlCommand command = connection.CreateCommand();
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "PR_Patient_Insert";
+                            command.Parameters.Add("@PATIENTNAME", SqlDbType.VarChar).Value = patientModel.PatientName;
+                            command.Parameters.Add("@DATEOFBIRTH", SqlDbType.DateTime).Value = patientModel.DateOfBirth;
+                            command.Parameters.Add("@GENDER", SqlDbType.VarChar).Value = patientModel.Gender;
+                            command.Parameters.Add("@EMAIL", SqlDbType.VarChar).Value = patientModel.Email;
+                            command.Parameters.Add("@PHONE", SqlDbType.VarChar).Value = patientModel.Phone;
+                            command.Parameters.Add("@ADDRESS", SqlDbType.VarChar).Value = patientModel.Address;
+                            command.Parameters.Add("@CITY", SqlDbType.VarChar).Value = patientModel.City;
+                            command.Parameters.Add("@STATE", SqlDbType.VarChar).Value = patientModel.State;
+                            command.Parameters.Add("@ISACTIVE", SqlDbType.Bit).Value = patientModel.IsActive;
+                            command.Parameters.Add("@MODIFIED", SqlDbType.DateTime).Value = patientModel.Modified;
+                            command.Parameters.Add("@USERID", SqlDbType.Int).Value = patientModel.UserID;
 
-                command.Parameters.AddWithValue("@NAME", SqlDbType.VarChar).Value = patientModel.Name;
-                command.Parameters.AddWithValue("@DATEOFBIRTH", SqlDbType.DateTime).Value = patientModel.DateOfBirth;
-                command.Parameters.AddWithValue("@GENDER", SqlDbType.VarChar).Value = patientModel.Gender;
-                command.Parameters.AddWithValue("@EMAIL", SqlDbType.VarChar).Value = patientModel.Email;
-                command.Parameters.AddWithValue("@PHONE", SqlDbType.VarChar).Value = patientModel.Phone;
-                command.Parameters.AddWithValue("@ADDRESS", SqlDbType.VarChar).Value = patientModel.Address;
-                command.Parameters.AddWithValue("@CITY", SqlDbType.VarChar).Value = patientModel.City;
-                command.Parameters.AddWithValue("@STATE", SqlDbType.VarChar).Value = patientModel.State;
-                command.Parameters.AddWithValue("@ISACTIVE", SqlDbType.Bit).Value = patientModel.IsActive;
-                command.Parameters.AddWithValue("@CREATED", SqlDbType.DateTime).Value = patientModel.Created;
-                command.Parameters.AddWithValue("@MODIFIED", SqlDbType.DateTime).Value = patientModel.Modified;
-                command.Parameters.AddWithValue("@USERID", SqlDbType.Int).Value = patientModel.UserID;
+                            int rows = command.ExecuteNonQuery();
 
-                command.ExecuteNonQuery();
-                return RedirectToAction("PatientList");
-
+                            TempData["PatientInsertUpdateMessage"] = rows > 0
+                                ? (patientModel.PatientID == 0 ? "Patient added successfully!" : "Patient updated successfully!")
+                                : "Patient Add/update Failed";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TempData["DoctorInsertUpdateMessage"] = "Error: " + ex.Message;
+                }
             }
-            return View(patientModel);
+            else
+            {
+                return View("PatientAddEdit", patientModel);
+            }
+
+            return RedirectToAction("PatientList");
         }
         #endregion
 
+
+        #region GET method for Edit - This was missing and causing 404
+        public IActionResult PatientUpdate(int? PatientID)
+        {
+            if (PatientID == null)
+            {
+                ViewBag.ErrorMessage = "PatientID ID is required";
+                return RedirectToAction("PatientList");
+            }
+
+            string connectionString = this.configuration.GetConnectionString("myConnection");
+            PatientModel patientModel = new PatientModel();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandText = "PR_Patient_SelectByPK";
+
+                        command.Parameters.Add("@PATIENTID", SqlDbType.Int).Value = PatientID;
+
+                        SqlDataReader reader = command.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            patientModel.PatientID = Convert.ToInt32(reader["PatientID"]);
+                            patientModel.PatientName = reader["PatientName"].ToString();
+                            patientModel.DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]);
+                            patientModel.Gender = reader["Gender"].ToString();
+                            patientModel.Email = reader["Email"].ToString();
+                            patientModel.Phone = reader["Phone"].ToString();
+                            patientModel.City = reader["City"].ToString();
+                            patientModel.Address = reader["Address"].ToString();
+                            patientModel.State = reader["State"].ToString();
+                            patientModel.Modified = Convert.ToDateTime(reader["Modified"]);
+                            patientModel.Created = Convert.ToDateTime(reader["Created"]);
+                            patientModel.IsActive = Convert.ToBoolean(reader["IsActive"]);
+                            patientModel.UserID = Convert.ToInt32(reader["UserID"]);
+                        }
+                        else
+                        {
+                            TempData["ErrorMessage"] = "Patient not found for edit";
+                            return RedirectToAction("PatientList");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error loading patient: " + ex.Message;
+                return RedirectToAction("PatientList");
+            }
+
+            return View("PatientAddEdit", patientModel);
+        }
+        #endregion
+
+
         public IActionResult PatientList()
         {
-            //string connectionString = configuration.GetConnectionString("ConnectionString");
             DataTable table = Plist("PR_Patient_SelectAll");
-            
+
             return View(table);
         }
 
         public IActionResult PatientAddEdit()
         {
-            return View();
+            return View(new PatientModel());
         }
+
+
     }
 }

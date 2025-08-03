@@ -1,4 +1,4 @@
-﻿
+﻿@model HMS.Models.AppointmentModel; 
 
 <div class="d-flex justify-content-between mb-4">
     <div class="h4">Add Appointment</div>
@@ -17,13 +17,13 @@
         <div class="row">
             <div class="col-4">
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Appointment Date & Time</label>
-                    <input type="datetime" class="form-control" id="exampleFormControlInput1" placeholder="01-01-0001 00:00">
+                    <label for="appointmentDateTime" class="form-label">Appointment Date & Time</label>
+                    <input type="datetime" class="form-control" id="appointmentDateTime" asp-for="AppointmentDate">
                 </div>
             </div>
             <div class="col-4">
-                <label class="mb-2" for="autoSizingSelect">Department</label>
-                <select class="form-select" id="autoSizingSelect">
+                <label class="mb-2" for="departementSelect">Department</label>
+                <select class="form-select" id="departementSelect" >
                     <option selected>--Select Department-- </option>
                     <option value="1">Department1</option>
                     <option value="2">Department1</option>

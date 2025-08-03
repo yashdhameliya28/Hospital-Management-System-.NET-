@@ -1,36 +1,66 @@
-﻿
+﻿@model HMS.Models.DoctorModel
 
 <div class="d-flex justify-content-between">
-    <div class="h4">Doctor List</div>
-    <div class=""> <span class="text-primary">Hospital Management </span> > <span class="text-primary">Doctor</span> > Doctor List</div>
+    <div class="h4">@(Model?.DoctorID > 0 ? "Edit Doctor" : "Add Doctor")</div>
+    <div class=""> <span class="text-primary">Hospital Management </span> > <span class="text-primary">Doctor</span> > @(Model?.DoctorID > 0 ? "Edit Doctor" : "Add Doctor")</div>
 </div>
 
-<form method="post" asp-controller="Doctor" asp-action="DcotorAddEdit">
+
+<form method="post" asp-controller="Doctor" asp-action="DoctorSave">
+    <input type="hidden" asp-for="DoctorID" />
+
     <div class="mb-3">
-        <label for="Name" class="form-label">Name</label>
-        <input type="text" id="Name" name="Name" class="form-control" />
+        <label for="Name" class="form-label">Name <span class="text-danger">*</span></label>
+        <input type="text" id="Name" name="Name" asp-for="Name" class="form-control" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label for="Phone" class="form-label">Phone</label>
-        <input type="number" id="Phone" name="Phone" class="form-control" />
+        <label for="Phone" class="form-label">Phone <span class="text-danger">*</span></label>
+        <input type="tel" id="Phone" name="Phone" class="form-control" asp-for="Phone" required />
+       
     </div>
 
     <div class="mb-3">
-        <label for="Email" class="form-label">Email</label>
-        <input type="email" id="Email" name="Email" class="form-control" />
+        <label for="Email" class="form-label">Email <span class="text-danger">*</span></label>
+        <input type="email" id="Email" name="Email" class="form-control" asp-for="Email" required />
+       
     </div>
 
     <div class="mb-3">
-        <label for="Qualification" class="form-label">Qualification</label>
-        <input type="text" id="Qualification" name="Qualification" class="form-control" />
+        <label for="Qualification" class="form-label">Qualification <span class="text-danger">*</span></label>
+        <input type="text" id="Qualification" name="Qualification" class="form-control" asp-for="Qualification" required />
+        
     </div>
 
     <div class="mb-3">
-        <label for="Specialization" class="form-label">Specialization</label>
-        <input type="text" id="Specialization" name="Specialization" class="form-control" />
+        <label for="Specialization" class="form-label">Specialization <span class="text-danger">*</span></label>
+        <input type="text" id="Specialization" name="Specialization" class="form-control" asp-for="Specialization" required />
+        
     </div>
 
-    <button type="submit" class="btn btn-primary">Save</button>
-    <a href="#" class="btn btn-secondary">Cancel</a>
+    <div class="col-auto mb-3">
+        <label class="mb-2" for="User Name">User Name</label>
+        <select class="form-select" id="autoSizingSelect" asp-for="UserID">
+            <option selected>--Select User Name-- </option>
+            <option value="6">6</option>
+            <option value="2">Doctor2</option>
+            <option value="3">Doctor3</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        @(Model?.DoctorID > 0 ? "Update Doctor" : "Save Doctor")
+    </button>
+    <a href="@Url.Action("DoctorList", "Doctor")" class="btn btn-secondary">Cancel</a>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js" integrity="sha512-KFHXdr2oObHKI9w4Hv1XPKc898mE4kgYx58oqsc/JqqdLMDI4YjOLzom+EMlW8HFUd0QfjfAvxSL6sEq/a42fQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js" integrity="sha512-xq+Vm8jC94ynOikewaQXMEkJIOBp7iArs3IhFWSWdRT3Pq8wFz46p+ZDFAR7kHnSFf+zUv52B3prRYnbDRdgog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

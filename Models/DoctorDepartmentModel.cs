@@ -2,7 +2,7 @@
 
 namespace HMS.Models
 {
-    public class DoctorDepartmentModel : Controller
+    public class DoctorDepartmentModel
     {
         public int DoctorDepartmentID { get; set; }
         public string DoctorName { get; set; }

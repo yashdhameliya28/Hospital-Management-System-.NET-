@@ -112,9 +112,6 @@ namespace HMS.Controllers
             return View(table);
         }
 
-        public IActionResult DoctorDepartmentAddEdit()
-        {
-            return View();
-        }
+        
     }
 }

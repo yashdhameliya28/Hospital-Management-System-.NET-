@@ -39,15 +39,15 @@
             @foreach (DataRow row in Model.Rows)
             {
                 <tr>
-                    <td>@row["Name"]</td>
+                    <td>@row["PatientName"]</td>
                     <td>@row["Gender"]</td>
                     <td>@row["Email"]</td>
                     <td>@row["Phone"]</td>
                     <td>@row["City"]</td>
                     <td>@row["State"]</td>
                     <td>
-                        <button type="button" class="btn btn-outline-primary">Edit</button>
-                        <button asp-controller="Patient" asp-action="PatientDelete" asp-route-PatintID="@row["PatientID"]" class="btn btn-outline-danger">Delete</button>
+                        <a asp-controller="Patient" asp-action="PatientUpdate" asp-route-PatientID="@row["PatientID"]" class="btn btn-outline-primary">Edit</a>
+                        <a asp-controller="Patient" asp-action="PatientDelete" asp-route-PatientID="@row["PatientID"]" class="btn btn-outline-danger">Delete</a>
                     </td>
                 </tr>
             }

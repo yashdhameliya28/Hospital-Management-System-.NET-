@@ -9,13 +9,13 @@
 
 <div class="mb-4">
     
-    @if (TempData["Sucessfully"] != null)
+    @if (TempData["Successfully"] != null)
     {
-        <div class="alert alert-success"> @TempData["Sucessfully"]</div>
+        <div class="alert alert-success"> @TempData["Successfully"]</div>
     }
-    @if (TempData["Unsucessfully"] != null)
+    @if (TempData["Unsuccessfully"] != null)
     {
-        <div class="alert alert-danger"> @TempData["Unsucessfully"]</div>
+        <div class="alert alert-danger"> @TempData["Unsuccessfully"]</div>
     }
 </div>
 
@@ -40,8 +40,8 @@
                 <td>@row["Qualification"]</td>
                 <td>@row["Specialization"]</td>
                 <td>
-                    <button type="button" class="btn btn-outline-primary">Edit</button>
-                    <a asp-controller="Doctor" asp-action="DocterDelete" asp-route-DoctorID="@row["DoctorID"]" class="btn btn-outline-danger">Delete</a>
+                    <a asp-controller="Doctor" asp-action="DoctorUpdate" asp-route-DoctorID="@row["DoctorID"]" class="btn btn-outline-primary">Edit</a>
+                    <a asp-controller="Doctor" asp-action="DoctorDelete" asp-route-DoctorID="@row["DoctorID"]" class="btn btn-outline-danger">Delete</a>
                 </td>
             </tr>
         }

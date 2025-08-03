@@ -1,0 +1,50 @@
+﻿@model DataTable
+@using System.Data
+
+<div class="d-flex justify-content-between">
+    <div class="h4">User List</div>
+    <div class=""> <span class="text-primary">Hospital Management </span> > <span class="text-primary">User</span> > User List</div>
+</div>
+
+<div class="mb-4">
+
+    @if (TempData["Sucessfully"] != null)
+    {
+        <div class="alert alert-success"> @TempData["Sucessfully"]</div>
+    }
+    @if (TempData["Unsucessfully"] != null)
+    {
+        <div class="alert alert-danger"> @TempData["Unsucessfully"]</div>
+    }
+
+</div>
+
+<div class="card p-3">
+    <table class="table mt-2 p-2 table-bordered">
+        <thead>
+            <tr class="table-active">
+                <th scope="col">User ID</th>
+                <th scope="col">User Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Mobile No.</th>
+                <th scope="col">Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in Model.Rows)
+            {
+                <tr>
+                    <td>@row["UserID"]</td>
+                    <td>@row["UserName"]</td>
+                    <td>@row["Email"]</td>
+                    <td>@row["MobileNo"]</td>
+                    <td>
+                        <a asp-controller="User" asp-action="UserUpdate" asp-route-UserID="@row["UserID"]" class="btn btn-outline-primary">Edit</a>
+                        <a asp-controller="User" asp-action="UserDelete" asp-route-UserID="@row["UserID"]" class="btn btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
