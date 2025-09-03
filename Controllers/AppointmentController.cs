@@ -9,7 +9,7 @@ namespace HMS.Controllers
     {
         public IConfiguration Configuration;
 
-        public AppointmentController (IConfiguration configuration)
+        public AppointmentController(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -20,16 +20,16 @@ namespace HMS.Controllers
         {
             string connectionString = this.Configuration.GetConnectionString("myConnection");
 
-            using(SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                connection .Open();
+                connection.Open();
 
-                using(SqlCommand command = connection.CreateCommand())
+                using (SqlCommand command = connection.CreateCommand())
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.CommandText = SP;
 
-                    using(SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
                         DataTable table = new DataTable();
                         table.Load(reader);
@@ -67,51 +67,139 @@ namespace HMS.Controllers
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 TempData["Unsucessfully"] = "Not Delete.";
                 return RedirectToAction("AppointmentList");
             }
-            
+
         }
 
         #endregion
 
 
         #region ADD/EDIT DB
-        public IActionResult AppointmentAddEdit(AppointmentModel appointmentModel)
+        [HttpPost]
+        public IActionResult AppintmentSave(AppointmentModel appointmentModel)
         {
             if (ModelState.IsValid)
             {
-                appointmentModel.Created = DateTime.Now;
-                appointmentModel.Modified = DateTime.Now;
-                appointmentModel.UserID = 2;
+                try
+                {
+                    string connectionString = this.Configuration.GetConnectionString("myConnection");
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
 
-                string connectionString = this.Configuration.GetConnectionString("myConnection");
-                SqlConnection connection = new SqlConnection(connectionString);
-                connection.Open();
+                        using (SqlCommand command = connection.CreateCommand())
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
 
-                SqlCommand command = connection.CreateCommand();
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "PR_Appointment_Insert";
+                            if (appointmentModel.AppointmentID != 0)
+                            {
+                                command.CommandText = "PR_Appointment_UpdateByPK";
+                                command.Parameters.AddWithValue("@APPOINMENTID", appointmentModel.AppointmentID);
+                                appointmentModel.Modified = DateTime.Now;
+                            }
+                            else
+                            {
+                                command.CommandText = "PR_Appointment_Insert";
+                                appointmentModel.Created = DateTime.Now;
+                                appointmentModel.Modified = DateTime.Now;
+                            }
 
-                //command.Parameters.AddWithValue("@DOCTORID", SqlDbType.Int).Value = appointmentModel.DoctorID;
-                command.Parameters.AddWithValue("@APPOINMENTDATE", SqlDbType.Int).Value = appointmentModel.AppointmentDate;
-                //command.Parameters.AddWithValue("", SqlDbType.Int).Value = appointmentModel.DoctorID;
-                command.Parameters.AddWithValue("@DESCRIPTION", SqlDbType.Int).Value = appointmentModel.Description;
-                command.Parameters.AddWithValue("@SPECIALREMARKS", SqlDbType.Int).Value = appointmentModel.SpecialRemarks;
-                command.Parameters.AddWithValue("@CREATED", SqlDbType.Int).Value = appointmentModel.Created;
-                command.Parameters.AddWithValue("@MODIFIED", SqlDbType.Int).Value = appointmentModel.Modified;
-                command.Parameters.AddWithValue("@USERID", SqlDbType.Int).Value = appointmentModel.UserID;
+                            command.Parameters.AddWithValue("@DOCTORID", appointmentModel.DoctorID);
+                            command.Parameters.AddWithValue("@PATIENTID", appointmentModel.PatientID);
+                            command.Parameters.AddWithValue("@APPOINMENTDATE", appointmentModel.AppointmentDate);
+                            command.Parameters.AddWithValue("@APPOINMENTSTATUS", appointmentModel.AppointmentStatus);
+                            command.Parameters.AddWithValue("@DESCRIPTION", appointmentModel.Description);
+                            command.Parameters.AddWithValue("@SPECIALREMARKS", appointmentModel.SpecialRemarks);
+                            command.Parameters.AddWithValue("@MODIFIED", appointmentModel.Modified);
+                            command.Parameters.AddWithValue("@USERID", appointmentModel.UserID);
+                            command.Parameters.AddWithValue("@TOTALCONSULTEDAMOUNT", appointmentModel.TotalConsultedAmount);
 
-                command.ExecuteNonQuery();
+                            int rows = command.ExecuteNonQuery();
 
-                return RedirectToAction("AppointmentList");
-
+                            TempData["AppointmentInsertUpdateMessage"] = rows > 0
+                                ? (appointmentModel.AppointmentID == 0 ? "Appointment added successfully!" : "Appointment updated successfully!")
+                                : "Appointment Add/update Failed";
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    TempData["AppointmentInsertUpdateMessage"] = "Error: " + e.Message;
+                }
             }
-            return View(appointmentModel);
+            else
+            {
+                return View("AppointmentAddEdit", appointmentModel);
+            }
+
+            return RedirectToAction("AppointmentList");
         }
         #endregion
+
+        #region GET method for Edit - This was missing and causing 404
+        public IActionResult AppointmentSave(int? AppointmentID)
+        {
+            if(AppointmentID == null)
+            {
+                ViewBag.ErrorMessage = "Appointment ID is required";
+                return RedirectToAction("AppointmentList");
+            }
+
+            string connectionString = this.Configuration.GetConnectionString("myConnection");
+            AppointmentModel appointmentModel = new AppointmentModel();
+
+            try
+            {
+                using(SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    using(SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandText = "PR_Appointment_SelectByPK";
+
+                        command.Parameters.AddWithValue("@APPOINTMENTID", AppointmentID);
+
+                        using(SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                appointmentModel.AppointmentID = Convert.ToInt32(reader["AppointmentID"]);
+                                appointmentModel.DoctorID = Convert.ToInt32(reader["DoctorID"]);
+                                appointmentModel.PatientID = Convert.ToInt32(reader["PatientID"]);
+                                appointmentModel.AppointmentDate = Convert.ToDateTime(reader["AppointmentDate"]);
+                                appointmentModel.AppointmentStatus = reader["AppointmentStatus"].ToString();
+                                appointmentModel.Description = reader["Description"].ToString();
+                                appointmentModel.SpecialRemarks = reader["SpecialRemarks"].ToString();
+                                appointmentModel.Created = Convert.ToDateTime(reader["Created"]);
+                                appointmentModel.Modified = Convert.ToDateTime(reader["Modified"]);
+                                appointmentModel.UserID = Convert.ToInt32(reader["UserID"]);
+                                appointmentModel.TotalConsultedAmount = Convert.ToInt32(reader["TotalConsultedAmount"]);
+                            }
+                            else
+                            {
+                                TempData["ErrorMessage"] = "Appointment not found for edit";
+                                return RedirectToAction("AppointmentList");
+                            }
+                        }
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                TempData["ErrorMessage"] = "Error loading doctor: " + e.Message;
+                return RedirectToAction("AppointmentList");
+            }
+
+            return View("AppointmentAddEdit", appointmentModel);
+        }
+        #endregion
+
 
         public IActionResult AppointmentList()
         {
@@ -119,6 +207,7 @@ namespace HMS.Controllers
             return View(table);
         }
 
+        [HttpGet]
         public IActionResult AppointmentAddEdit()
         {
             return View();

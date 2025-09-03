@@ -1,50 +1,70 @@
 ﻿@model HMS.Models.DepartmentModel
 
-<div class="d-flex justify-content-between mb-4">
-    <div class="h4">Department Information</div>
-    <div>
-        <span class="text-primary">Hospital Management</span> >
-        <span class="text-primary">Department</span> >
-    </div>
+@{
+    // Dynamically set the title based on whether we are creating or editing
+    ViewData["Title"] = Model.DepartmentID > 0 ? "Edit Department" : "Create Department";
+}
+
+<div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+    <div class="h2 text-primary fw-bold mb-0">@(Model.DepartmentID > 0 ? "Edit Department" : "Create New Department")</div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home" class="text-decoration-none">Hospital Management</a></li>
+            <li class="breadcrumb-item"><a asp-action="DepartmentList" asp-controller="Department" class="text-decoration-none">Department</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@(Model.DepartmentID > 0 ? "Edit" : "Create")</li>
+        </ol>
+    </nav>
 </div>
 
-<div class="card p-3">
-    <form method="post" asp-controller="Department" asp-action="DepartmentSave">
-        <input type="hidden" name="DepartmentID" asp-for="DepartmentID" />
+<div class="card shadow-lg p-4">
+    <div class="card-body">
+        <h4 class="card-title mb-4">Department Details</h4>
+        <form method="post" asp-controller="Department" asp-action="DepartmentSave">
+            <input type="hidden" asp-for="DepartmentID" />
 
-        <label for="DepartmentName">Department Name</label>
-        <input type="text" id="DepartmentName" asp-for="DepartmentName" class="form-control mb-2" />
-        <div class="mb-2">
-            <span asp-validation-for="DepartmentName" class="text-danger mb-2"> </span>
-        </div>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <label asp-for="DepartmentName" class="form-label fw-bold">Department Name</label>
+                    <input type="text" asp-for="DepartmentName" class="form-control" placeholder="e.g., Cardiology" />
+                    <span asp-validation-for="DepartmentName" class="text-danger small mt-1 d-block"></span>
+                </div>
 
-        <label for="Description">Description</label>
-        <input type="text" id="Description" class="form-control mb-2" asp-for="Description" required />
-        <div class="mb-2">
-            <span asp-validation-for="Description" class="text-danger mb-2"> </span>
+                <div class="col-md-6 mb-4">
+                    <label asp-for="UserID" class="form-label fw-bold">Assign User (Head)</label>
+                    <select class="form-select" asp-for="UserID">
+                        <option value="">-- Select User --</option>
+                        @foreach (var name in ViewBag.UserList as IEnumerable<HMS.Models.DepartmentDropDownModel>)
+                        {
+                            <option value="@name.UserID">@name.UserName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="UserID" class="text-danger small mt-1 d-block"></span>
+                </div>
+            </div>
 
-        </div>
+            <div class="mb-4">
+                <label asp-for="Description" class="form-label fw-bold">Description</label>
+                <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter a brief description of the department..."></textarea>
+                <span asp-validation-for="Description" class="text-danger small mt-1 d-block"></span>
+            </div>
 
-        <div class="col-auto mb-3">
-            <label class="mb-2" for="User Name">User ID</label>
-            <select class="form-select" id="autoSizingSelect" asp-for="UserID">
-                <option selected>--Select User ID-- </option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-            </select>
-        </div>
-        <div class="mb-2">
-            <span asp-validation-for="UserID" class="text-danger mb-2"> </span>
-
-        </div>
-
-        <button type="submit" class="btn btn-primary">
-            @(Model.DepartmentID > 0 ? "Update Department" : "Save Department")
-        </button>
-        <a href="@Url.Action("DepartmentList", "Department")" class="btn btn-secondary mt-2">Cancel</a>
-    </form>
-
+            <div class="d-flex justify-content-end gap-2 pt-3">
+                <a asp-action="DepartmentList" asp-controller="Department" class="btn btn-outline-secondary d-flex align-items-center">
+                    <i class="fas fa-times me-2"></i> Cancel
+                </a>
+                <button type="submit" class="btn btn-primary d-flex align-items-center">
+                    @if (Model.DepartmentID > 0)
+                    {
+                        <span><i class="fas fa-save me-2"></i> Update Department</span>
+                    }
+                    else
+                    {
+                        <span><i class="fas fa-plus me-2"></i> Save Department</span>
+                    }
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 
 @section Scripts {

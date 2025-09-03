@@ -1,4 +1,5 @@
 ﻿using HMS.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,7 +11,7 @@ namespace HMS.Controllers
 
         public IConfiguration configuration;
 
-        public UserController (IConfiguration configuration)
+        public UserController(IConfiguration configuration)
         {
             this.configuration = configuration;
         }
@@ -64,12 +65,12 @@ namespace HMS.Controllers
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 TempData["Unsuccessfully"] = "Delete Failed: " + e.Message;
                 return RedirectToAction("UserList");
             }
-            
+
         }
         #endregion
 
@@ -94,7 +95,7 @@ namespace HMS.Controllers
                             {
                                 command.CommandText = "PR_User_UpdateByPK";
                                 command.Parameters.AddWithValue("@USERID", userModel.UserID);
-                                userModel.Modified = DateTime.Now; 
+                                userModel.Modified = DateTime.Now;
                             }
                             else
                             {
@@ -135,7 +136,7 @@ namespace HMS.Controllers
         #region GET method for Edit - This was missing and causing 404
         public IActionResult UserUpdate(int UserID)
         {
-            if(UserID == null)
+            if (UserID == null)
             {
                 ViewBag.ErrorMessage = "UserID is required";
                 return RedirectToAction("UserList");
@@ -146,11 +147,11 @@ namespace HMS.Controllers
 
             try
             {
-                using(SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    using(SqlCommand command = connection.CreateCommand())
+                    using (SqlCommand command = connection.CreateCommand())
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.CommandText = "PR_User_SelectByPK";
@@ -158,7 +159,7 @@ namespace HMS.Controllers
                         command.Parameters.AddWithValue("@USERID", UserID);
 
                         SqlDataReader reader = command.ExecuteReader();
-                        if(reader.Read())
+                        if (reader.Read())
                         {
                             userModel.UserID = Convert.ToInt32(reader["UserID"]);
                             userModel.UserName = reader["UserName"].ToString();
@@ -188,9 +189,78 @@ namespace HMS.Controllers
         #endregion
 
 
+        #region Login logic
+        public IActionResult UserLogin(UserLoginModel userLoginModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    string connectionString = this.configuration.GetConnectionString("myConnection");
+
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
+
+                        using (SqlCommand command = connection.CreateCommand())
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.CommandText = "PR_User_Login";
+
+                            command.Parameters.AddWithValue("@USERNAME", userLoginModel.UserName);
+                            command.Parameters.AddWithValue("@PASSWORD", userLoginModel.Password);
+
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                DataTable table = new DataTable();
+                                table.Load(reader);
+
+                                if (table.Rows.Count > 0)
+                                {
+                                    foreach (DataRow row in table.Rows)
+                                    {
+                                        HttpContext.Session.SetString("UserName", row["UserName"].ToString());
+                                        HttpContext.Session.SetString("Password", row["Password"].ToString());
+                                        HttpContext.Session.SetString("UserID", row["UserID"].ToString());
+                                    }
+
+                                    return RedirectToAction("UserList");
+                                }
+                                else
+                                {
+                                    TempData["ErrorMessage"] = "User is not found";
+                                    return RedirectToAction("UserLogin");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = e.Message;
+            }
+
+            return RedirectToAction("UserLogin");
+        }
+        #endregion
+
+        #region Logout
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "User");
+        }
+        #endregion
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
         public IActionResult UserAddEdit()
         {
-            return View(new UserModel());   
+            return View(new UserModel());
         }
 
         public IActionResult UserList()

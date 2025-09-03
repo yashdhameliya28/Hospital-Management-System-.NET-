@@ -1,50 +1,66 @@
 ﻿@model HMS.Models.UserModel
 
-<div class="d-flex justify-content-between mb-4">
-    <div class="h4">User Information</div>
-    <div>
-        <span class="text-primary">Hospital Management</span> >
-        <span class="text-primary">User</span> >
-    </div>
+@{
+    ViewData["Title"] = Model.UserID > 0 ? "Edit User" : "Create User";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="h2 text-primary fw-bold mb-0">@(Model.UserID > 0 ? "Edit User" : "Add New User")</div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Hospital Management</a></li>
+            <li class="breadcrumb-item"><a href="#" class="text-decoration-none">User</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@(Model.UserID > 0 ? "Edit" : "Add")</li>
+        </ol>
+    </nav>
 </div>
 
-<div class="card p-3">
-    <form method="post" asp-controller="User" asp-action="UserSave">
-        <input type="hidden" name="UserID" asp-for="UserID" />
+<div class="card shadow-lg p-4">
+    <div class="card-body">
+        <h4 class="card-title mb-4">User Details</h4>
+        <form method="post" asp-controller="User" asp-action="UserSave">
+            <input type="hidden" name="UserID" asp-for="UserID" />
 
-        <label for="UserName">Name</label>
-        <input type="text" id="UserName" asp-for="UserName" class="form-control mb-2" />
-        <div class="mb-2">
-            <span asp-validation-for="UserName" class="text-danger mb-2"> </span>
-        </div>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label asp-for="UserName" class="form-label fw-bold">Name</label>
+                    <input type="text" asp-for="UserName" class="form-control" placeholder="e.g., John Doe" />
+                    <span asp-validation-for="UserName" class="text-danger small mt-1 d-block"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Email" class="form-label fw-bold">Email</label>
+                    <input type="email" asp-for="Email" class="form-control" placeholder="e.g., user@example.com" />
+                    <span asp-validation-for="Email" class="text-danger small mt-1 d-block"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="MobileNo" class="form-label fw-bold">Mobile No.</label>
+                    <input type="tel" asp-for="MobileNo" class="form-control" placeholder="e.g., +91 9876543210" />
+                    <span asp-validation-for="MobileNo" class="text-danger small mt-1 d-block"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Password" class="form-label fw-bold">Password</label>
+                    <input type="password" asp-for="Password" class="form-control" placeholder="Enter password" />
+                    <span asp-validation-for="Password" class="text-danger small mt-1 d-block"></span>
+                </div>
+            </div>
 
-        <label for="Password">Password</label>
-        <input type="password" id="Password" class="form-control mb-2" asp-for="Password" required />
-        <div class="mb-2">
-            <span asp-validation-for="Password" class="text-danger mb-2"> </span>
-
-        </div>
-
-        <label for="Email">Email</label>
-        <input type="email" id="Email" class="form-control mb-2" asp-for="Email" required />
-        <div class="mb-2">
-            <span asp-validation-for="Email" class="text-danger mb-2"> </span>
-
-        </div>
-
-        <label for="MobileNo">Mobile No.</label>
-        <input type="text" id="MobileNo" asp-for="MobileNo" name="MobileNo" class="form-control mb-2" required />
-        <div class="mb-2">
-
-            <span asp-validation-for="MobileNo" class="text-danger mb-2"> </span>
-        </div>
-
-        <button type="submit" class="btn btn-primary">
-            @(Model.UserID > 0 ? "Update User" : "Save User")
-        </button>
-        <a href="@Url.Action("UserList", "User")" class="btn btn-secondary mt-2">Cancel</a>
-    </form>
-
+            <div class="d-flex justify-content-end gap-2 pt-4">
+                <a asp-action="UserList" asp-controller="User" class="btn btn-outline-secondary d-flex align-items-center">
+                    <i class="fas fa-times me-2"></i> Cancel
+                </a>
+                <button type="submit" class="btn btn-primary d-flex align-items-center">
+                    @if (Model.UserID > 0)
+                    {
+                        <span><i class="fas fa-save me-2"></i> Update User</span>
+                    }
+                    else
+                    {
+                        <span><i class="fas fa-user-plus me-2"></i> Save User</span>
+                    }
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 
 @section Scripts {

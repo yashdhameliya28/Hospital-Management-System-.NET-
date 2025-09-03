@@ -25,7 +25,7 @@ namespace HMS.Models
         public string Qualification { get; set; }
 
         [Required(ErrorMessage = "Required Specialization")]
-        [StringLength(10, MinimumLength = 5, ErrorMessage = "Enter valid Specialization")]
+        [StringLength(100, MinimumLength = 5, ErrorMessage = "Enter valid Specialization")]
         public string Specialization { get; set; }
        
         public bool IsActive { get; set; }
@@ -35,5 +35,14 @@ namespace HMS.Models
         [Required(ErrorMessage = "Required UserID")]
         public int UserID { get; set; }
 
+        [Required(ErrorMessage = "Required User Name")]
+        public string UserName { get; set; }
+
+    }
+
+    public class DoctorDropDownModel
+    {
+        public int UserID { get; set; }
+        public string UserName { get; set; }
     }
 }

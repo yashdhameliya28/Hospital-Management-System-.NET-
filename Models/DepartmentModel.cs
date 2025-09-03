@@ -22,4 +22,10 @@ namespace HMS.Models
         [Required(ErrorMessage ="Required UserID")]
         public int UserID { get; set; }
     }
+
+    public class DepartmentDropDownModel
+    {
+        public int UserID { get; set; }
+        public string UserName { get; set; }
+    }
 }

@@ -1,47 +1,87 @@
-﻿@model DataTable
+﻿@model System.Data.DataTable
 @using System.Data
 
-<div class="d-flex justify-content-between">
-    <div class="h4">Departemt List</div>
-    <div class=""> <span class="text-primary">Hospital Management </span> > <span class="text-primary">Departemt</span> > Departemt List</div>
+@{
+    ViewData["Title"] = "Department List";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="h2 text-primary fw-bold mb-0">Departments</div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Hospital Management</a></li>
+            <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Department</a></li>
+            <li class="breadcrumb-item active" aria-current="page">List</li>
+        </ol>
+    </nav>
 </div>
 
-<div class="mb-4">
+@if (TempData["Successfully"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i><strong>Success!</strong> @TempData["Successfully"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["Unsuccessfully"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-triangle me-2"></i><strong>Error!</strong> @TempData["Unsuccessfully"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
-    @if (TempData["Sucessfully"] != null)
-    {
-        <div class="alert alert-success"> @TempData["Sucessfully"]</div>
-    }
-    @if (TempData["Unsucessfully"] != null)
-    {
-        <div class="alert alert-danger"> @TempData["Unsucessfully"]</div>
-    }
-
+<div class="card shadow-lg mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="m-0 fw-bold text-primary">Manage Departments</h6>
+        <a asp-controller="Department" asp-action="DepartmentCreate" class="btn btn-primary d-flex align-items-center shadow-sm">
+            <i class="fas fa-plus me-2"></i> Add New Department
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped" id="departmentsTable" width="100%" cellspacing="0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="fw-bold">Department ID</th>
+                        <th class="fw-bold">Department Name</th>
+                        <th class="fw-bold">Description</th>
+                        <th class="text-center fw-bold">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (DataRow row in Model.Rows)
+                    {
+                        <tr>
+                            <td>@row["DepartmentID"]</td>
+                            <td>@row["DepartmentName"]</td>
+                            <td>@row["Description"]</td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a asp-controller="Department" asp-action="DepartmentUpdate" asp-route-departmentID="@row["DepartmentID"]"
+                                       class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip" title="Edit">
+                                        <i class="fas fa-pen-to-square"></i>
+                                    </a>
+                                    <a asp-controller="Department" asp-action="DepartmentDelete" asp-route-departmentID="@row["DepartmentID"]"
+                                       class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" title="Delete"
+                                       onclick="return confirm('Are you sure you want to delete this department?');">
+                                        <i class="fas fa-trash-can"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<div class="card p-3">
-    <table class="table mt-2 p-2 table-bordered">
-        <thead>
-            <tr class="table-active">
-                <th scope="col">Departemt ID</th>
-                <th scope="col">Departemt Name</th>
-                <th scope="col">Description</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (DataRow row in Model.Rows)
-            {
-                <tr>
-                    <td>@row["DepartmentID"]</td>
-                    <td>@row["DepartmentName"]</td>
-                    <td>@row["Description"]</td>
-                    <td>
-                        <a asp-controller="Department" asp-action="DepartmentUpdate" asp-route-departmentID="@row["DepartmentID"]" class="btn btn-outline-primary">Edit</a>
-                        <a asp-controller="Department" asp-action="DepartmentDelete" asp-route-departmentID="@row["DepartmentID"]" class="btn btn-outline-danger">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
 
+@section Scripts {
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+}

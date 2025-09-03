@@ -76,6 +76,7 @@ namespace HMS.Controllers
         [HttpPost]
         public IActionResult DoctorSave(DoctorModel doctorModel)
         {
+            ModelState.Remove("UserName");
             if (ModelState.IsValid)
             {
                 try
@@ -99,10 +100,12 @@ namespace HMS.Controllers
                             else
                             {
                                 command.CommandText = "PR_Doctor_Insert";
-                                doctorModel.UserID = 6;
+                                //doctorModel.UserID = 6;
                                 doctorModel.Created = DateTime.Now;
                                 doctorModel.Modified = DateTime.Now;
                             }
+
+                            UserDropDown();
 
                             command.Parameters.Add("@Name", SqlDbType.VarChar).Value = doctorModel.Name ?? "";
                             command.Parameters.Add("@Phone", SqlDbType.VarChar).Value = doctorModel.Phone ?? "";
@@ -139,6 +142,7 @@ namespace HMS.Controllers
         [HttpGet]
         public IActionResult DoctorUpdate(int? DoctorID)
         {
+            UserDropDown();
             if (DoctorID == null)
             {
                 ViewBag.ErrorMessage = "Doctor ID is required";
@@ -200,6 +204,42 @@ namespace HMS.Controllers
         }
         #endregion
 
+        #region User Drop-Down 
+        public void UserDropDown()
+        {
+            string connectionString = this.configuration.GetConnectionString("myConnection");
+            using(SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using(SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "PR_User_SelectForDropDown";
+
+
+                    using(SqlDataReader reader = command.ExecuteReader())
+                    {
+                        DataTable table = new DataTable();
+                        table.Load(reader);
+
+                        List<DoctorDropDownModel> userList = new List<DoctorDropDownModel>(); 
+                        foreach(DataRow data in table.Rows)
+                        {
+                            DoctorDropDownModel model = new DoctorDropDownModel();
+                            model.UserID = Convert.ToInt32(data["UserID"]);
+                            model.UserName = data["UserName"].ToString();
+
+                            userList.Add(model);
+                        }
+
+                        ViewBag.UserList = userList;
+                    }
+                }
+            }
+        } 
+        #endregion
+
         public IActionResult DoctorList()
         {
             DataTable table = DList("PR_Doctor_SelectAll");
@@ -209,6 +249,7 @@ namespace HMS.Controllers
         [HttpGet]
         public IActionResult DoctorAddEdit()
         {
+            UserDropDown();
             return View(new DoctorModel());
         }
     }

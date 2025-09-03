@@ -1,54 +1,79 @@
 ﻿@model HMS.Models.DoctorDepartmentModel;
+@using HMS.Models
 
-<div class="d-flex justify-content-between mb-4">
-    <div class="h4">Add Doctor Department</div>
-    <div class=""> <span class="text-primary">Hospital Management </span> > <span class="text-primary">Doctor Department</span> >Add</div>
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+    <div class="h2 text-primary fw-bold mb-2 mb-md-0">Assign Doctor to Department</div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Hospital Management</a></li>
+            <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Doctor Department</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Assign</li>
+        </ol>
+    </nav>
 </div>
 
-<div class="card p-3">
-    <div class="mb-2">
-        <div class="h5">Doctor Department Information</div>
-        <div class="h6">Assign a doctor to one or more department</div>
-    </div>
+<div class="card shadow-lg p-4">
+    <div class="card-body">
+        <h4 class="card-title mb-4 fw-bold text-secondary">Assignment Information</h4>
+        <form method="post" asp-controller="DoctorDepartment" asp-action="DoctorDepartmentSave">
+            @* Hidden field for the ID when editing an existing record *@
+            <input type="hidden" asp-for="DoctorDepartmentID" />
 
-    <form method="post" asp-controller="DoctorDepartment" asp-action="DoctorDepartmentAddEdit">
-        
+            <div class="row g-4">
+                @* User Name Field *@
+                <div class="col-md-6">
+                    <label asp-for="UserID" class="form-label fw-bold">User Name</label>
+                    <select class="form-select" asp-for="UserID">
+                        <option value="">-- Select User --</option>
+                        @foreach (User_DropDownModel name in ViewBag.UserList)
+                        {
+                            <option value="@name.UserID">@name.UserName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="UserID" class="text-danger small mt-1 d-block"></span>
+                </div>
 
-        <div class="col-auto mb-3">
-            <label class="mb-2" for="autoSizingSelect">Doctor</label>
-            <select class="form-select" id="autoSizingSelect">
-                <option selected>--Select Doctor-- </option>
-                <option value="1">Doctor1</option>
-                <option value="2">Doctor2</option>
-                <option value="3">Doctor3</option>
-            </select>
-        </div>
+                @* Doctor Name Field *@
+                <div class="col-md-6">
+                    <label asp-for="DoctorID" class="form-label fw-bold">Doctor Name</label>
+                    <select class="form-select" asp-for="DoctorID">
+                        <option value="">-- Select Doctor --</option>
+                        @foreach (Doctor_DropDownModel name in ViewBag.DoctorList)
+                        {
+                            <option value="@name.DoctorID">@name.DoctorName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="DoctorID" class="text-danger small mt-1 d-block"></span>
+                </div>
 
-        <div class="mb-4 ">
-            <div class="" role="group" aria-label="Basic checkbox toggle button group">
-                <input type="checkbox" class="" id="cardiology" autocomplete="off">
-                <label class="me-2" for="cardiology">Cardiology</label>
-
-                <input type="checkbox" class="" id="d" autocomplete="off">
-                <label class="me-2" for="d">D</label>
-
-                <input type="checkbox" class="" id="neruology" autocomplete="off">
-                <label class="me-2" for="neruology">Neruology</label>
-
-                <input type="checkbox" class="" id="orthopedic" autocomplete="off">
-                <label class="me-2" for="orthopedic">Orthopedic</label>
-
-                <input type="checkbox" class="" id="ssssss" autocomplete="off">
-                <label class="me-2" for="ssssss">ssssss</label>
-
-                <input type="checkbox" class="" id="test" autocomplete="off">
-                <label class="me-2" for="test">Test</label>
+                @* Department Name Field *@
+                <div class="col-12">
+                    <label asp-for="DepartmentID" class="form-label fw-bold">Department Name</label>
+                    <select class="form-select" asp-for="DepartmentID">
+                        <option value="">-- Select Department --</option>
+                        @foreach (Department_DropDown name in ViewBag.DepartmentList)
+                        {
+                            <option value="@name.DepartmentID">@name.DepartmentName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="DepartmentID" class="text-danger small mt-1 d-block"></span>
+                </div>
             </div>
-        </div>
 
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a href="#" class="btn btn-secondary">Cancel</a>
-    </form>
-
+            <div class="d-flex justify-content-end gap-2 pt-4">
+                <a asp-action="DoctorDepartmentList" asp-controller="DoctorDepartment" class="btn btn-outline-secondary d-flex align-items-center">
+                    <i class="fas fa-times me-2"></i>Cancel
+                </a>
+                <button type="submit" class="btn btn-primary d-flex align-items-center">
+                    <i class="fas fa-save me-2"></i>Save Assignment
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

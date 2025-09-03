@@ -46,4 +46,9 @@ namespace HMS.Models
         public int UserName { get; set; }
     }
 
+    public class PatientDropDownModel
+    {
+        public int UserID { get; set; }
+        public string UserName { get; set; }
+    }
 }

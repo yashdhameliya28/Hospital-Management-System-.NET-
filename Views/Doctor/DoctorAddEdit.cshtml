@@ -1,65 +1,90 @@
 ﻿@model HMS.Models.DoctorModel
+@using HMS.Models
 
-<div class="d-flex justify-content-between">
-    <div class="h4">@(Model?.DoctorID > 0 ? "Edit Doctor" : "Add Doctor")</div>
-    <div class=""> <span class="text-primary">Hospital Management </span> > <span class="text-primary">Doctor</span> > @(Model?.DoctorID > 0 ? "Edit Doctor" : "Add Doctor")</div>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="h2 text-primary fw-bold mb-0">@(Model.DoctorID > 0 ? "Edit Doctor" : "Add New Doctor")</div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Hospital Management</a></li>
+            <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Doctor</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@(Model.DoctorID > 0 ? "Edit" : "Add")</li>
+        </ol>
+    </nav>
 </div>
 
+<div class="card shadow-lg p-4">
+    <div class="card-body">
+        <form method="post" asp-controller="Doctor" asp-action="DoctorSave">
+            <input type="hidden" asp-for="DoctorID" />
 
-<form method="post" asp-controller="Doctor" asp-action="DoctorSave">
-    <input type="hidden" asp-for="DoctorID" />
+            <fieldset class="border p-3 rounded mb-4">
+                <legend class="float-none w-auto px-2 fs-5 fw-bold text-secondary">Personal Information</legend>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="Name" class="form-label fw-bold">Name</label>
+                        <input type="text" asp-for="Name" class="form-control" placeholder="Enter doctor's name" />
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Email" class="form-label fw-bold">Email</label>
+                        <input type="email" asp-for="Email" class="form-control" placeholder="Enter email address" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Phone" class="form-label fw-bold">Phone</label>
+                        <input type="tel" asp-for="Phone" class="form-control" placeholder="Enter phone number" />
+                        <span asp-validation-for="Phone" class="text-danger small"></span>
+                    </div>
+                </div>
+            </fieldset>
 
-    <div class="mb-3">
-        <label for="Name" class="form-label">Name <span class="text-danger">*</span></label>
-        <input type="text" id="Name" name="Name" asp-for="Name" class="form-control" required />
-        <span asp-validation-for="Name" class="text-danger"></span>
+            <fieldset class="border p-3 rounded mb-4">
+                <legend class="float-none w-auto px-2 fs-5 fw-bold text-secondary">Professional Information</legend>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="Qualification" class="form-label fw-bold">Qualification</label>
+                        <input type="text" asp-for="Qualification" class="form-control" placeholder="e.g., MBBS, MD" />
+                        <span asp-validation-for="Qualification" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Specialization" class="form-label fw-bold">Specialization</label>
+                        <input type="text" asp-for="Specialization" class="form-control" placeholder="e.g., Cardiology, Neurology" />
+                        <span asp-validation-for="Specialization" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="UserID" class="form-label fw-bold">User Name</label>
+                        <select asp-for="UserID" class="form-select">
+                            <option value="">Select User Name</option>
+                            @foreach (DoctorDropDownModel name in ViewBag.UserList)
+                            {
+                                <option value="@name.UserID">@name.UserName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="UserID" class="text-danger small"></span>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="d-flex justify-content-end gap-2 pt-2">
+                <a asp-action="DoctorList" asp-controller="Doctor" class="btn btn-outline-secondary d-flex align-items-center">
+                    <i class="fas fa-times me-2"></i> Cancel
+                </a>
+                <button type="submit" class="btn btn-primary d-flex align-items-center">
+                    @if (Model.DoctorID > 0)
+                    {
+                        <span><i class="fas fa-save me-2"></i> Update Doctor</span>
+                    }
+                    else
+                    {
+                        <span><i class="fas fa-user-md me-2"></i> Save Doctor</span>
+                    }
+                </button>
+            </div>
+        </form>
     </div>
+</div>
 
-    <div class="mb-3">
-        <label for="Phone" class="form-label">Phone <span class="text-danger">*</span></label>
-        <input type="tel" id="Phone" name="Phone" class="form-control" asp-for="Phone" required />
-       
-    </div>
-
-    <div class="mb-3">
-        <label for="Email" class="form-label">Email <span class="text-danger">*</span></label>
-        <input type="email" id="Email" name="Email" class="form-control" asp-for="Email" required />
-       
-    </div>
-
-    <div class="mb-3">
-        <label for="Qualification" class="form-label">Qualification <span class="text-danger">*</span></label>
-        <input type="text" id="Qualification" name="Qualification" class="form-control" asp-for="Qualification" required />
-        
-    </div>
-
-    <div class="mb-3">
-        <label for="Specialization" class="form-label">Specialization <span class="text-danger">*</span></label>
-        <input type="text" id="Specialization" name="Specialization" class="form-control" asp-for="Specialization" required />
-        
-    </div>
-
-    <div class="col-auto mb-3">
-        <label class="mb-2" for="User Name">User Name</label>
-        <select class="form-select" id="autoSizingSelect" asp-for="UserID">
-            <option selected>--Select User Name-- </option>
-            <option value="6">6</option>
-            <option value="2">Doctor2</option>
-            <option value="3">Doctor3</option>
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-primary">
-        @(Model?.DoctorID > 0 ? "Update Doctor" : "Save Doctor")
-    </button>
-    <a href="@Url.Action("DoctorList", "Doctor")" class="btn btn-secondary">Cancel</a>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js" integrity="sha512-KFHXdr2oObHKI9w4Hv1XPKc898mE4kgYx58oqsc/JqqdLMDI4YjOLzom+EMlW8HFUd0QfjfAvxSL6sEq/a42fQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js" integrity="sha512-xq+Vm8jC94ynOikewaQXMEkJIOBp7iArs3IhFWSWdRT3Pq8wFz46p+ZDFAR7kHnSFf+zUv52B3prRYnbDRdgog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-</form>
-
-@section Scripts{
+@section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }

@@ -71,8 +71,9 @@ namespace HMS.Controllers
             }
         }
         #endregion
-       
+
         #region Add/Edit DB 
+        [HttpPost]
         public IActionResult DepartmentSave(DepartmentModel departmentModel)
         {
             if (ModelState.IsValid)
@@ -101,9 +102,11 @@ namespace HMS.Controllers
                                 departmentModel.IsActive = true;
                                 departmentModel.Created = DateTime.Now;
                                 departmentModel.Modified = DateTime.Now;
-                                departmentModel.UserID = 6;
+                                //departmentModel.UserID = 6;
                             }
 
+                            UserDropDown();
+                            
                             command.Parameters.AddWithValue("@DEPARTMENTNAME", departmentModel.DepartmentName);
                             command.Parameters.AddWithValue("@DESCRIPTION", departmentModel.Description);
                             command.Parameters.AddWithValue("@ISACTIVE", departmentModel.IsActive);
@@ -132,9 +135,11 @@ namespace HMS.Controllers
         #endregion
 
         #region GET method for Edit - This was missing and causing 404
+        [HttpGet]
         public IActionResult DepartmentUpdate(int departmentID)
         {
-            if(departmentID == 0)
+            UserDropDown(); 
+            if (departmentID == 0)
             {
                 ViewBag.ErrorMessage = "DepartmentID  is required";
                 return RedirectToAction("DepartmentList");
@@ -183,14 +188,52 @@ namespace HMS.Controllers
         }
         #endregion
 
+        #region Drop-Down User
+        public void UserDropDown()
+        {
+            string connectionString = this.configuration.GetConnectionString("myConnection");
+
+            using(SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using(SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "PR_User_SelectForDropDown";
+
+                    using(SqlDataReader reader = command.ExecuteReader())
+                    {
+                        DataTable table = new DataTable();
+                        table.Load(reader);
+
+                        List<DepartmentDropDownModel> userList = new List<DepartmentDropDownModel>();
+                        foreach (DataRow row in table.Rows)
+                        {
+                            DepartmentDropDownModel model = new DepartmentDropDownModel();
+                            model.UserID = Convert.ToInt32(row["UserID"]);
+                            model.UserName = row["UserName"].ToString();
+
+                            userList.Add(model);
+                        }
+
+                        ViewBag.UserList = userList;
+                    }
+                }
+            }
+        }
+        #endregion
+
         public IActionResult DepartmentList()
         {
             DataTable table = DeList("PR_Department_SelectAll");
             return View(table);
         }
 
+        [HttpGet]
         public IActionResult DepartmentAddEdit()
         {
+            UserDropDown();
             return View(new DepartmentModel());
         }
     }

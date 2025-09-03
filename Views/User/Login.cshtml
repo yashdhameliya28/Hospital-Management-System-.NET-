@@ -1,4 +1,8 @@
-﻿
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Login.cshtml";
+}
+
+@model UserLoginModel
 
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
@@ -6,21 +10,21 @@
             <h4 class="text-primary fw-bold">Hospital Management System</h4>
         </div>
 
-        <div class="text-center mb-3">
+        @* <div class="text-center mb-3">
             <h5 class="fw-semibold">Free Sign Up</h5>
             <p class="text-muted small">Don't have an account? Create your account in less than a minute!</p>
-        </div>
+        </div> *@
 
-        <form method="post">
+        <form method="post" asp-controller="User" asp-action="UserLogin">
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" placeholder="Enter your name">
             </div>
 
-            <div class="mb-3">
+            @* <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" placeholder="Enter your email">
-            </div>
+            </div> *@
 
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
@@ -32,7 +36,7 @@
                 </div>
             </div>
 
-            <div class="mb-4">
+            @* <div class="mb-4">
                 <label for="role" class="form-label">Role</label>
                 <select class="form-select" id="role">
                     <option selected disabled>-- Select Role --</option>
@@ -41,9 +45,15 @@
                     <option>Receptionist</option>
                     <option>Admin</option>
                 </select>
-            </div>
+            </div> *@
 
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Sign Up</button>
             </div>
         </form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

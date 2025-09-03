@@ -1,102 +1,147 @@
 ﻿@model HMS.Models.PatientModel
+@using HMS.Models
 
-<div class="d-flex justify-content-between mb-4">
-    <div class="h4">Patient Information</div>
-    <div>
-        <span class="text-primary">Hospital Management</span> >
-        <span class="text-primary">Patient</span> >
-    </div>
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+    <div class="h2 text-primary fw-bold mb-2 mb-md-0">Patient Information</div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Hospital Management</a></li>
+            <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Patient</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Information</li>
+        </ol>
+    </nav>
 </div>
 
-<div class="card p-3">
-    <form method="post" asp-controller="Patient" asp-action="PatientSave">
-        <input type="hidden" name="PatientID" asp-for="PatientID" />
+<div class="card shadow-lg p-4">
+    <div class="card-body">
+        <form method="post" asp-controller="Patient" asp-action="PatientSave">
+            <input type="hidden" name="PatientID" asp-for="PatientID" />
 
-        <label for="PatientName">Name</label>
-        <input type="text" id="PatientName" asp-for="PatientName" class="form-control mb-2" />
-        <div class="mb-2">
-            <span asp-validation-for="PatientName" class="text-danger mb-2"> </span>
-        </div>
+            <div class="accordion" id="patientFormAccordion">
+                @* Personal Details Section *@
+                <div class="accordion-item mb-4 rounded-3 shadow-sm">
+                    <h2 class="accordion-header" id="personalDetailsHeading">
+                        <button class="accordion-button fs-5 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#personalDetailsCollapse" aria-expanded="true" aria-controls="personalDetailsCollapse">
+                            Personal Details
+                        </button>
+                    </h2>
+                    <div id="personalDetailsCollapse" class="accordion-collapse collapse show" aria-labelledby="personalDetailsHeading">
+                        <div class="accordion-body">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label asp-for="PatientName" class="form-label fw-bold">Name</label>
+                                    <input type="text" asp-for="PatientName" class="form-control" placeholder="Enter patient's full name" />
+                                    <span asp-validation-for="PatientName" class="text-danger small mt-1 d-block"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="DateOfBirth" class="form-label fw-bold">Date of Birth</label>
+                                    <input type="date" asp-for="DateOfBirth" class="form-control" />
+                                    <span asp-validation-for="DateOfBirth" class="text-danger small mt-1 d-block"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="Gender" class="form-label fw-bold">Gender</label>
+                                    <select asp-for="Gender" class="form-select">
+                                        <option value="">-- Select Gender --</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <span asp-validation-for="Gender" class="text-danger small mt-1 d-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <label for="DateOfBirth">Date of Birth</label>
-        <input type="date" id="DateOfBirth" asp-for="DateOfBirth" class="form-control mb-2" required />
-        <div class="mb-2">
-            <span asp-validation-for="DateOfBirth" class="text-danger mb-2"> </span>
-        </div>
+                @* Contact Information Section *@
+                <div class="accordion-item mb-4 rounded-3 shadow-sm">
+                    <h2 class="accordion-header" id="contactInfoHeading">
+                        <button class="accordion-button fs-5 fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#contactInfoCollapse" aria-expanded="false" aria-controls="contactInfoCollapse">
+                            Contact Information
+                        </button>
+                    </h2>
+                    <div id="contactInfoCollapse" class="accordion-collapse collapse" aria-labelledby="contactInfoHeading">
+                        <div class="accordion-body">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label asp-for="Email" class="form-label fw-bold">Email</label>
+                                    <input type="email" asp-for="Email" class="form-control" placeholder="Enter email address" />
+                                    <span asp-validation-for="Email" class="text-danger small mt-1 d-block"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="Phone" class="form-label fw-bold">Phone</label>
+                                    <input type="tel" asp-for="Phone" class="form-control" placeholder="Enter phone number" />
+                                    <span asp-validation-for="Phone" class="text-danger small mt-1 d-block"></span>
+                                </div>
+                                <div class="col-12">
+                                    <label asp-for="Address" class="form-label fw-bold">Address</label>
+                                    <input type="text" asp-for="Address" class="form-control" placeholder="Enter street address" />
+                                    <span asp-validation-for="Address" class="text-danger small mt-1 d-block"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="City" class="form-label fw-bold">City</label>
+                                    <input type="text" asp-for="City" class="form-control" placeholder="Enter city" />
+                                    <span asp-validation-for="City" class="text-danger small mt-1 d-block"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="State" class="form-label fw-bold">State</label>
+                                    <select asp-for="State" class="form-select">
+                                        <option value="">-- Select State --</option>
+                                        <option value="Gujarat">Gujarat</option>
+                                        <option value="Maharashtra">Maharashtra</option>
+                                        <option value="Rajasthan">Rajasthan</option>
+                                        <option value="Delhi">Delhi</option>
+                                        <option value="Karnataka">Karnataka</option>
+                                    </select>
+                                    <span asp-validation-for="State" class="text-danger small mt-1 d-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <label for="Gender">Gender</label>
-        <select id="Gender" class="form-control mb-2" asp-for="Gender" required>
-            <option value="">-- Select Gender --</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-        </select>
-        <div class="mb-2">
+                @* System Information Section *@
+                <div class="accordion-item mb-4 rounded-3 shadow-sm">
+                    <h2 class="accordion-header" id="systemInfoHeading">
+                        <button class="accordion-button fs-5 fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#systemInfoCollapse" aria-expanded="false" aria-controls="systemInfoCollapse">
+                            System Information
+                        </button>
+                    </h2>
+                    <div id="systemInfoCollapse" class="accordion-collapse collapse" aria-labelledby="systemInfoHeading">
+                        <div class="accordion-body">
+                            <div class="col-12">
+                                <label asp-for="UserID" class="form-label fw-bold">User Name</label>
+                                <select asp-for="UserID" class="form-select">
+                                    <option value="">Select User Name</option>
+                                    @foreach (PatientDropDownModel name in ViewBag.UserList)
+                                    {
+                                        <option value="@name.UserID">@name.UserName</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="UserID" class="text-danger small mt-1 d-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <span asp-validation-for="Gender" class="text-danger mb-2"> </span>
-        </div>
-
-        <label for="Email">Email</label>
-        <input type="email" id="Email" class="form-control mb-2" asp-for="Email" required />
-        <div class="mb-2">
-            <span asp-validation-for="Email" class="text-danger mb-2"> </span>
-
-        </div>
-
-        <label for="Phone">Phone</label>
-        <input type="text" id="Phone" asp-for="Phone" name="Phone" class="form-control mb-2" required />
-        <div class="mb-2">
-
-            <span asp-validation-for="Phone" class="text-danger mb-2"> </span>
-        </div>
-
-        <label for="City">City</label>
-        <input type="text" id="City" name="City" asp-for="City" asp-for="PatientID" class="form-control mb-2" required />
-        <div class="mb-2">
-
-            <span asp-validation-for="City" class="text-danger mb-2"> </span>
-        </div>
-
-        <label for="Address">Address</label>
-        <input type="text" id="Address" name="Address" asp-for="Address" class="form-control mb-2" required />
-        <div class="mb-2">
-            <span asp-validation-for="Address" class="text-danger mb-2"> </span>
-
-        </div>
-
-        <label for="State">State</label>
-        <select id="State" name="State" class="form-control mb-2" asp-for="State" required>
-            <option value="">-- Select State --</option>
-            <option value="Gujarat">Gujarat</option>
-            <option value="Maharashtra">Maharashtra</option>
-            <option value="Rajasthan">Rajasthan</option>
-            <option value="Delhi">Delhi</option>
-            <option value="Karnataka">Karnataka</option>
-        </select>
-        <div class="mb-2">
-            <span asp-validation-for="State" class="text-danger mb-2"> </span>
-
-        </div>
-
-        <div class="col-auto mb-3">
-            <label class="mb-2" for="User Name">User Name</label>
-            <select class="form-select" id="autoSizingSelect" asp-for="UserID">
-                <option selected>--Select User Name-- </option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-            </select>
-        </div>
-        <div class="mb-2">
-            <span asp-validation-for="UserName" class="text-danger mb-2"> </span>
-        </div>
-
-        <button type="submit" class="btn btn-primary">
-            @(Model.PatientID > 0 ? "Update Patient" : "Save Patient")
-        </button>
-        <a href="@Url.Action("PatientList", "Patient")" class="btn btn-secondary mt-2">Cancel</a>
-    </form>
-
+            <div class="d-flex justify-content-end gap-2 pt-4">
+                <a asp-action="PatientList" asp-controller="Patient" class="btn btn-outline-secondary d-flex align-items-center">
+                    <i class="fas fa-times me-2"></i> Cancel
+                </a>
+                <button type="submit" class="btn btn-primary d-flex align-items-center">
+                    @if (Model.PatientID > 0)
+                    {
+                        <span><i class="fas fa-save me-2"></i> Update Patient</span>
+                    }
+                    else
+                    {
+                        <span><i class="fas fa-user-plus me-2"></i> Save Patient</span>
+                    }
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 
 @section Scripts {

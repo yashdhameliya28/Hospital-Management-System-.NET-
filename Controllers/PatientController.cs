@@ -42,7 +42,6 @@ namespace HMS.Controllers
         }
         #endregion
 
-
         #region Delete DB
 
         public IActionResult PatientDelete(int PATIENTID)
@@ -76,7 +75,6 @@ namespace HMS.Controllers
         }
 
         #endregion
-
         
         #region Add/Edit DB 
         [HttpPost]
@@ -106,10 +104,12 @@ namespace HMS.Controllers
                             {
                                 command.CommandText = "PR_Patient_Insert";
                                 patientModel.Created = DateTime.Now;
-                                patientModel.UserID = 6;
+                                //patientModel.UserID = 6;
                                 patientModel.IsActive = true;
                                 patientModel.Modified = DateTime.Now;
                             }
+
+                            UserDropDown();
 
                             command.Parameters.Add("@PATIENTNAME", SqlDbType.VarChar).Value = patientModel.PatientName;
                             command.Parameters.Add("@DATEOFBIRTH", SqlDbType.DateTime).Value = patientModel.DateOfBirth;
@@ -145,10 +145,11 @@ namespace HMS.Controllers
         }
         #endregion
 
-
         #region GET method for Edit - This was missing and causing 404
+        [HttpGet]
         public IActionResult PatientUpdate(int? PatientID)
         {
+            UserDropDown();
             if (PatientID == null)
             {
                 ViewBag.ErrorMessage = "PatientID ID is required";
@@ -205,6 +206,40 @@ namespace HMS.Controllers
         }
         #endregion
 
+        #region User Drop-Down
+        public void UserDropDown()
+        {
+            string connectionString = this.configuration.GetConnectionString("myConnection");
+            using(SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using(SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "PR_User_SelectForDropDown";
+
+                    using(SqlDataReader reader = command.ExecuteReader())
+                    {
+                        DataTable table = new DataTable();
+                        table.Load(reader);
+
+                        List<PatientDropDownModel> userList = new List<PatientDropDownModel>();
+                        foreach(DataRow row in table.Rows)
+                        {
+                            PatientDropDownModel model = new PatientDropDownModel();
+                            model.UserID = Convert.ToInt32(row["UserID"]);
+                            model.UserName = row["UserName"].ToString();
+                            
+                            userList.Add(model);
+                        }
+
+                        ViewBag.UserList = userList;
+                    }
+                }
+            } 
+        }
+        #endregion
 
         public IActionResult PatientList()
         {
@@ -213,8 +248,11 @@ namespace HMS.Controllers
             return View(table);
         }
 
+
+        [HttpGet]
         public IActionResult PatientAddEdit()
         {
+            UserDropDown();
             return View(new PatientModel());
         }
 
